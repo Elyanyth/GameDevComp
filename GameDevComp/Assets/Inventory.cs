@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class Inventory : MonoBehaviour
 {
     public GameObject Inv;
-    [SerializeField] public Color Color;
+    [SerializeField] public Color SelColor;
     GameObject Slot;
+    [SerializeField] public GameObject HotBar;
     // Update is called once per frame
     void Update()
     {
@@ -17,10 +19,12 @@ public class Inventory : MonoBehaviour
             if (Inv.gameObject.activeSelf) 
             {
                 Inv.gameObject.SetActive(false);
+                HotBar.gameObject.SetActive(true);
             } 
             else 
             {
-                Inv.gameObject.SetActive(true);                
+                Inv.gameObject.SetActive(true);  
+                HotBar.gameObject.SetActive(false);              
             }
             
         }
@@ -31,10 +35,17 @@ public class Inventory : MonoBehaviour
                 if (Int32.TryParse(Input.inputString, out int num)) {
                     if (Slot != null) 
                     {
-                        Slot.SetActive(true);
+                        Slot.GetComponent<Image>().color = Color.black;
                     }
                     Slot = Inv.gameObject.transform.GetChild(num-1).gameObject;
-                    Slot.SetActive(false);
+                    Slot.GetComponent<Image>().color = Color.red;
+                    if (Slot.transform.childCount == 1){
+                        GameObject item = Slot.gameObject.transform.GetChild(0).gameObject;
+                        item = Instantiate(item);
+                        item.transform.SetParent(HotBar.transform);
+                    }
+                    
+
                 }
         }
         
