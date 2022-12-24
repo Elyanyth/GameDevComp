@@ -18,9 +18,8 @@ public class followPlayer : MonoBehaviour
     void Update()
     {
         playerPos = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<Rigidbody2D>().position;
-
-        if (camPos.x != playerPos.x && camPos.y != playerPos.y){
-            transform.position = new Vector3(playerPos.x, playerPos.y, -10f);
+        if (camPos != playerPos){
+            transform.position = new Vector3(playerPos.x, playerPos.y, -10);
         }
     }
 }
