@@ -5,20 +5,22 @@ using UnityEngine;
 public class followPlayer : MonoBehaviour
 {
 
-    public Rigidbody2D player;
-    Rigidbody2D cam;
+    Vector3 playerPos;
+    Vector3 camPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        cam = gameObject.GetComponent<Rigidbody2D>();
+        camPos = gameObject.GetComponent<Rigidbody2D>().position;
+
+        playerPos = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<Rigidbody2D>().position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (cam.position != player.position){
-            transform.position = new Vector3(player.position.x, player.position.y, -10);
+        if (camPos != playerPos){
+            transform.position = new Vector3(playerPos.x, playerPos.y, -10);
         }
     }
 }
